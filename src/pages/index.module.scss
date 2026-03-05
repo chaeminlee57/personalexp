@@ -1,0 +1,16 @@
+.pageWrapper {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.name {
+  font-size: 3em;
+}
+
+img {
+  width: 200px;
+  height: auto;
+}
