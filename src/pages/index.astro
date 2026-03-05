@@ -5,7 +5,13 @@ import styles from './index.module.scss';
 
 <Layout title='Index'>
 	<div class={styles.pageWrapper}>
-		<p class={styles.name}>Chaemin Lee</p>
+		<p
+			class={styles.name}
+			onmouseover="this.textContent='Lee Chaemin'"
+			onmouseout="this.textContent='Chaemin Lee'"
+		>
+			Chaemin Lee
+		</p>
 
 		<a href='/home'>
 			<img src='/bluecircle.png' alt='blue circle' />
