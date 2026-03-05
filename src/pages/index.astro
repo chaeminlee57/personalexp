@@ -1,17 +1,22 @@
 ---
-
+import './styles.scss';
 ---
 
-<html lang="en">
+<html lang='en'>
 	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
+		<meta charset='utf-8' />
+		<link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+		<link rel='icon' href='/favicon.ico' />
+		<meta name='viewport' content='width=device-width' />
+		<meta name='generator' content={Astro.generator} />
 		<title>Astro</title>
 	</head>
 	<body>
-		<h1>Astro</h1>
+		<div class='page-wrapper'>
+			<p class='name'>Chaemin Lee</p>
+			<a href='/about'>
+				<img src='/bluecircle.png' alt='blue circle' />
+			</a>
+		</div>
 	</body>
 </html>
