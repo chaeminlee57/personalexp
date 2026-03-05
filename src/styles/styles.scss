@@ -1,5 +1,9 @@
 :root {
   font-family: Georgia, 'Times New Roman', Times, serif;
+  ::selection {
+    background-color: black;
+    color: #e9dfd5;;
+  }
 }
 
 body {

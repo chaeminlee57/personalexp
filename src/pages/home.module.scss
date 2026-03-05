@@ -8,3 +8,17 @@
 .topName {
   font-size: 2em;
 }
+
+.linkToFirst {
+  text-decoration: none;
+  color: rgb(52, 52, 52);
+}
+
+.pageWrapper img {
+  position: fixed;
+  top: 50vh;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 300px;
+}
