@@ -1,5 +1,6 @@
 ---
 import '../styles/styles.scss';
+import { ClientRouter } from 'astro:transitions';
 ---
 
 <html lang='en'>
@@ -10,9 +11,10 @@ import '../styles/styles.scss';
 		<meta name='viewport' content='width=device-width' />
 		<meta name='generator' content={Astro.generator} />
 		<title>Chaemin Lee</title>
+		<ClientRouter />
 	</head>
 
 	<body>
-		<slot />
+		<slot transition:animate='fade' />
 	</body>
 </html>
