@@ -19,6 +19,27 @@
   top: 50vh;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 300px;
-  height: 300px;
+  width: 200px;
+  height: 200px;
+}
+
+.navWrapper{
+  display: flex;
+  flex-direction: column;
+}
+
+.navColumnGrid {
+  display: grid;
+  grid-template-rows: 5(1fr);
+  height: 80vh;
+  a {
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    align-self: center;
+    font-size: 1.3em;
+  }
+}
+.navWrapper a:not(:nth-child(3)):hover {
+  opacity: 40%;
 }

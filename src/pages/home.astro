@@ -5,7 +5,15 @@ import styles from './home.module.scss';
 
 <Layout title='Home'>
 	<div class={styles.pageWrapper}>
-		<p class={styles.topName}>이채민</p>
-		<a href='/'><img src='bicircle.png' alt='eclipse' /></a>
+		<div class={styles.navWrapper}>
+			<p class={styles.topName}>이채민</p>
+			<nav class={styles.navColumnGrid}>
+				<a href=''>Career</a>
+				<a href=''>Projects</a>
+				<a href='/'><img src='bicircle.png' alt='eclipse' /></a>
+				<a href=''>Writing</a>
+				<a href=''>Self</a>
+			</nav>
+		</div>
 	</div>
 </Layout>
