@@ -1,0 +1,408 @@
+---
+interface Job {
+	company: string;
+	role: string;
+	description: string;
+	year: number;
+	logo: string;
+}
+
+interface Props {
+	height?: number;
+	stroke?: string;
+	class?: string;
+}
+
+const { height = 320, stroke = '#111111', class: className = '' } = Astro.props;
+
+const jobs: Job[] = [
+	{
+		company: 'Hana Tour',
+		role: 'Software Engineer Intern',
+		description: 'Web dev + database queries',
+		year: 2024.8,
+		logo: '/hana2.png',
+	},
+	{
+		company: 'Delighted Games',
+		role: 'Web developer',
+		description: 'Implemented Three js and React',
+		year: 2025.3,
+		logo: '/delighted.png',
+	},
+	{
+		company: `NASA L'SPACE`,
+		role: 'Principal Investigator',
+		description: 'Spearheaded the development of Martian AI program',
+		year: 2025.9,
+		logo: '/nasa2.png',
+	},
+	{
+		company: 'JHU APL',
+		role: 'AI Researcher',
+		description: 'Incoming',
+		year: 2026.5,
+		logo: '/apl2.png',
+	},
+];
+
+const timelineStart = 2024 + 6 / 12;
+const timelineEnd = 2026 + 10 / 12;
+const timelineSpan = timelineEnd - timelineStart;
+
+const jobPositions = jobs.map(
+	(job) => ((job.year - timelineStart) / timelineSpan) * 100
+);
+
+const positions = ['top', 'bottom', 'top', 'bottom'];
+---
+
+<div
+	class={`joy-timeline ${className}`}
+	style={`--joy-height:${height}px; --joy-stroke:${stroke};`}
+>
+	<canvas data-joy-wave aria-hidden='true'></canvas>
+
+	{
+		[2025, 2026].map((y) => (
+			<span
+				class='year-label'
+				style={`left: ${((y - timelineStart) / timelineSpan) * 100}%`}
+			>
+				{y}
+			</span>
+		))
+	}
+
+	{
+		jobs.map((job, i) => (
+			<div
+				class={`job-card ${positions[i]}`}
+				style={`left: ${jobPositions[i]}%`}
+				data-job-index={i}
+			>
+				<div class='card-inner'>
+					<img src={job.logo} alt={job.company} class='company-logo' />
+					<div class='card-text'>
+						<h4>{job.company}</h4>
+						<p class='role'>{job.role}</p>
+						<p class='desc'>{job.description}</p>
+					</div>
+				</div>
+				<div class='stem' />
+			</div>
+		))
+	}
+</div>
+
+<style>
+	.joy-timeline {
+		position: relative;
+		width: 100%;
+		height: var(--joy-height);
+		background: transparent;
+		overflow: visible;
+		cursor: crosshair;
+	}
+
+	.joy-timeline canvas {
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+
+	.year-label {
+		position: absolute;
+		top: calc(50% + 14px);
+		transform: translateX(-50%);
+		font-size: 0.62rem;
+		letter-spacing: 0.06em;
+		color: #aaa;
+		pointer-events: none;
+		user-select: none;
+	}
+
+	.job-card {
+		position: absolute;
+		transform: translateX(-50%);
+		opacity: 0;
+		transition: opacity 0.3s ease;
+		pointer-events: none;
+		width: 252px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.job-card.visible {
+		opacity: 1;
+	}
+
+	.job-card.top {
+		bottom: calc(50% + 20px);
+		flex-direction: column-reverse;
+	}
+
+	.job-card.bottom {
+		top: calc(50% + 20px);
+		flex-direction: column;
+	}
+
+	.card-inner {
+		background: transparent;
+		padding: 14px 17px;
+		display: flex;
+		flex-direction: row;
+		align-items: flex-start;
+		gap: 10px;
+		width: 100%;
+		box-sizing: border-box;
+	}
+
+	.company-logo {
+		width: 50px;
+		height: 50px;
+		object-fit: contain;
+		flex-shrink: 0;
+		border-radius: 4px;
+	}
+
+	.card-text {
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+		min-width: 0;
+	}
+
+	.job-card h4 {
+		font-size: 1.05rem;
+		font-weight: 600;
+		margin: 0;
+		color: #111;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.role {
+		font-size: 0.94rem;
+		color: #555;
+		margin: 0;
+	}
+
+	.desc {
+		font-size: 0.88rem;
+		color: #888;
+		margin: 0;
+		line-height: 1.45;
+	}
+</style>
+
+<script>
+	const initialized = new WeakSet();
+
+	function pseudoRandom(seed: number): number {
+		const x = Math.sin(seed * 999.91) * 43758.5453123;
+		return x - Math.floor(x);
+	}
+
+	function init(canvas: HTMLCanvasElement): void {
+		if (initialized.has(canvas)) return;
+		initialized.add(canvas);
+
+		const wrapper = canvas.closest('.joy-timeline') as HTMLDivElement | null;
+		const ctx = canvas.getContext('2d')!;
+		if (!wrapper) return;
+
+		const POINTS = 600;
+		const NUM_LAYERS = 12;
+
+		const layerNoise: number[][] = Array.from({ length: NUM_LAYERS }, (_, l) =>
+			Array.from({ length: POINTS }, (_, i) => {
+				const a = pseudoRandom(i * 2.3 + l * 1137 + 7);
+				const b = pseudoRandom(i * 5.7 + l * 873 + 31);
+				const c = pseudoRandom(i * 11.3 + l * 2371 + 59);
+				const d = pseudoRandom(i * 19.7 + l * 619 + 83);
+				const e = pseudoRandom(i * 31.1 + l * 3019 + 13);
+				return (
+					Math.pow(a, 3) * 0.35 +
+					Math.pow(b, 5) * 0.3 +
+					Math.pow(c, 2) * 0.15 +
+					Math.pow(d, 7) * 0.12 +
+					Math.pow(e, 4) * 0.08
+				);
+			})
+		);
+
+		const layerSpeeds: number[] = Array.from(
+			{ length: NUM_LAYERS },
+			(_, l) => 3.0 + pseudoRandom(l * 91.3 + 7) * 5.0
+		);
+		const layerPhases: number[] = Array.from(
+			{ length: NUM_LAYERS },
+			(_, l) => pseudoRandom(l * 53.7 + 19) * Math.PI * 2
+		);
+
+		const timelineStart = 2024 + 6 / 12;
+		const timelineSpan = 2026 + 10 / 12 - timelineStart;
+		const jobData = [
+			{ xNorm: (2024.8 - timelineStart) / timelineSpan + 0.01 },
+			{ xNorm: (2025.3 - timelineStart) / timelineSpan + 0.01 },
+			{ xNorm: (2025.9 - timelineStart) / timelineSpan + 0.01 },
+			{ xNorm: (2026.5 - timelineStart) / timelineSpan + 0.01 },
+		];
+
+		const jobCards = Array.from(
+			wrapper.querySelectorAll('.job-card')
+		) as HTMLDivElement[];
+
+		let width = 0;
+		let height = 0;
+		let dpr = 1;
+
+		const state = {
+			mouseX: -99999 as number,
+			hovering: false as boolean,
+			time: 0 as number,
+			hoverIntensity: 0 as number,
+		};
+
+		function resize(): void {
+			const rect = wrapper!.getBoundingClientRect();
+			width = Math.max(1, Math.floor(rect.width));
+			height = Math.max(1, Math.floor(rect.height));
+			dpr = Math.min(window.devicePixelRatio || 1, 2);
+			canvas.width = Math.floor(width * dpr);
+			canvas.height = Math.floor(height * dpr);
+			ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+		}
+
+		function updateCards(): void {
+			const hotRadius = width * 0.1;
+			jobData.forEach((job, i) => {
+				const cardX = job.xNorm * width;
+				const dist = Math.abs(cardX - state.mouseX);
+				const close = state.hovering && dist < hotRadius * 0.6;
+				jobCards[i]?.classList.toggle('visible', close);
+			});
+		}
+
+		function draw(): void {
+			state.time += 0.016;
+
+			const targetIntensity = state.hovering ? 1 : 0;
+			state.hoverIntensity += (targetIntensity - state.hoverIntensity) * 0.06;
+
+			updateCards();
+
+			const strokeColor =
+				getComputedStyle(wrapper!).getPropertyValue('--joy-stroke').trim() ||
+				'#111';
+
+			ctx.clearRect(0, 0, width, height);
+
+			const baseline = height * 0.5;
+			const hoverRadius = width * 0.09;
+			const maxAmp = height * 0.22;
+
+			for (let l = 0; l < NUM_LAYERS; l++) {
+				const alpha = 0.1 + (l / (NUM_LAYERS - 1)) * 0.9;
+				const lineWidth = 0.5 + (l / (NUM_LAYERS - 1)) * 1.0;
+				const t = state.time * layerSpeeds[l] + layerPhases[l];
+
+				ctx.beginPath();
+				ctx.strokeStyle = strokeColor;
+				ctx.globalAlpha = alpha;
+				ctx.lineWidth = lineWidth;
+				ctx.lineJoin = 'round';
+				ctx.lineCap = 'round';
+
+				let prevY = baseline;
+
+				for (let i = 0; i < POINTS; i++) {
+					const x = (i / (POINTS - 1)) * width;
+
+					const mouseDist = Math.abs(x - state.mouseX);
+					const influence =
+						state.hoverIntensity *
+						Math.exp(
+							-(mouseDist * mouseDist) / (2 * hoverRadius * hoverRadius)
+						);
+
+					const idleWiggle =
+						Math.sin(i * 0.4 + state.time * 1.2) * 0.5 +
+						Math.sin(i * 1.1 + state.time * 0.7) * 0.5;
+					const idleOffset = Math.abs(idleWiggle) * height * 0.005;
+
+					const noise = layerNoise[l][i];
+					const modulation = Math.abs(
+						Math.sin(
+							i * (0.2 + pseudoRandom(l * 17 + 1) * 2.8) +
+								t * (1.1 + pseudoRandom(l * 29) * 6)
+						) *
+							0.5 +
+							Math.sin(
+								i * (1.0 + pseudoRandom(l * 41 + 2) * 5.0) -
+									t * (2.3 + pseudoRandom(l * 37) * 8)
+							) *
+								0.28 +
+							Math.sin(
+								i * (4.0 + pseudoRandom(l * 53 + 3) * 8.0) +
+									t * (0.7 + pseudoRandom(l * 61) * 4)
+							) *
+								0.14 +
+							Math.sin(
+								i * (9.0 + pseudoRandom(l * 67 + 4) * 12) -
+									t * (3.5 + pseudoRandom(l * 71) * 9)
+							) *
+								0.08
+					);
+					const hoverMag = noise * modulation * influence * maxAmp;
+
+					const y = baseline - idleOffset - hoverMag;
+
+					if (i === 0) {
+						ctx.moveTo(x, y);
+					} else {
+						const prevX = ((i - 1) / (POINTS - 1)) * width;
+						const midX = (prevX + x) / 2;
+						const midY = (prevY + y) / 2;
+						ctx.quadraticCurveTo(prevX, prevY, midX, midY);
+					}
+
+					prevY = y;
+				}
+
+				ctx.stroke();
+			}
+
+			ctx.globalAlpha = 1;
+			requestAnimationFrame(draw);
+		}
+
+		canvas.addEventListener('mousemove', (e: MouseEvent) => {
+			const rect = canvas.getBoundingClientRect();
+			state.mouseX = e.clientX - rect.left;
+			state.hovering = true;
+		});
+
+		canvas.addEventListener('mouseleave', () => {
+			state.mouseX = -99999;
+			state.hovering = false;
+		});
+
+		new ResizeObserver(() => resize()).observe(wrapper!);
+
+		resize();
+		draw();
+	}
+
+	function initAll(): void {
+		document.querySelectorAll('[data-joy-wave]').forEach((el) => {
+			if (el instanceof HTMLCanvasElement) init(el);
+		});
+	}
+
+	initAll();
+	document.addEventListener('astro:page-load', initAll);
+</script>

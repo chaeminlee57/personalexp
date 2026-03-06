@@ -2,13 +2,15 @@
 import Layout from '../layouts/Layout.astro';
 import styles from './career.module.scss';
 import CareerCard from '../components/CareerCard.astro';
+import JoyWave from '../components/JoyWave.astro';
 ---
 
 <Layout title='Career'>
 	<div class={styles.pageWrapper}>
 		<div class={styles.contentWrapper}>
-			<p class={styles.career}>Career</p>
-			<CareerCard company='Johns Hopkins Applied Physics Laboratory' />
+			<p class={styles.career}></p>
+
+			<JoyWave height={200} stroke='#e4bb4c' />
 			<a href='/home'><img src='grainsun.png' alt='Sun' /></a>
 		</div>
 	</div>
