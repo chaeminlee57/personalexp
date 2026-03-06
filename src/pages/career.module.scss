@@ -1,4 +1,25 @@
+.pageWrapper {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+
+.career {
+  font-size: clamp(1.4rem, 3.5vw, 2.25rem);
+}
+
+.contentWrapper {
+  border: 1px solid black;
+  width: 80vw;
+  max-width: 2000px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 img {
-  width: 400px;
+  width: 200px;
   height: auto;
+  
 }

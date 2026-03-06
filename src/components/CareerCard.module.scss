@@ -1,0 +1,9 @@
+.card {
+  width: 80%;
+  border: 1px solid black;
+  padding: clamp(2px, 0.5vw, 4px) clamp(4px, 1vw, 8px);
+}
+
+.cardHeading {
+  font-size: clamp(0.9rem, 2.5vw, 1.25rem);
+}

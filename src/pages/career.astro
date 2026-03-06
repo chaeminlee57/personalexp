@@ -1,11 +1,15 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import styles from './career.module.scss';
+import CareerCard from '../components/CareerCard.astro';
 ---
 
 <Layout title='Career'>
 	<div class={styles.pageWrapper}>
-		<p>Career</p>
-		<a href='/'><img src='grainsun.png' alt='eclipse' /></a>
+		<div class={styles.contentWrapper}>
+			<p class={styles.career}>Career</p>
+			<CareerCard company='Johns Hopkins Applied Physics Laboratory' />
+			<a href='/home'><img src='grainsun.png' alt='Sun' /></a>
+		</div>
 	</div>
 </Layout>
