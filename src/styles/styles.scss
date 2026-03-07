@@ -10,3 +10,19 @@ body {
   background-color: #e9dfd5;
   margin: 0;
 }
+
+::view-transition-old(root) {
+  animation: 0.4s ease forwards blur-out;
+}
+
+::view-transition-new(root) {
+  animation: 0.4s ease forwards blur-in;
+}
+
+@keyframes blur-out {
+  to { filter: blur(8px); opacity: 0; }
+}
+
+@keyframes blur-in {
+  from { filter: blur(8px); opacity: 0; }
+}
