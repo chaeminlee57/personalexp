@@ -1,10 +1,39 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import styles from './self.module.scss';
+import MasonryBoard from '../components/MasonryBoard.astro';
+
+const photos = [
+	'https://i.pinimg.com/avif/736x/34/24/05/342405a4bf62fb88e092ba1e1ede8394.avf',
+	'https://i.pinimg.com/736x/1e/88/6a/1e886ac6adcc1cc47d1599f9fad718fb.jpg',
+	'https://i.pinimg.com/736x/76/52/38/765238e3ca0feb138cbde7e3a07e27e6.jpg',
+	'https://i.pinimg.com/1200x/6b/54/24/6b5424c3f629cba09b5a88cda4a7e648.jpg',
+	'https://cdn.cosmos.so/e37cba2e-a837-45f4-b3a6-ce49ad51c162?format=jpeg',
+	'https://cdn.cosmos.so/ebad91d8-3f43-47b7-9a56-e7acfd0b2385?format=jpeg',
+	'https://cdn.cosmos.so/64d4a0e1-41b6-4518-a657-592d64a0b918?format=jpeg',
+	'https://cdn.cosmos.so/04814bc4-0460-4b78-9421-aa74c52c9964.?format=jpeg',
+	'https://media.pitchfork.com/photos/5929bf4ec0084474cd0c2ffd/master/pass/e661e567.jpg',
+	'https://cdn.cosmos.so/6911ce5c-e43e-4384-91e7-fe862f292769?format=jpeg',
+	'https://cdn.cosmos.so/347b8319-e22c-4ede-bf81-a9817c8221ed?format=jpeg',
+	'https://cdn.cosmos.so/83c2f615-c3a3-4642-a064-583ca2104516?format=jpeg',
+	'https://cdn.cosmos.so/37279fa5-507f-4e4b-9ac4-f86d9b2c80b2?format=jpeg',
+	'https://cdn.cosmos.so/1b2a56c9-5594-4e6c-9a39-a102e0abd7cd?format=jpeg',
+	'https://cdn.cosmos.so/a6a87581-6ebc-40f1-af7f-2503dc5c06a1?format=jpeg',
+	'https://cdn.cosmos.so/c655f6b8-c4e6-4e85-9e27-1a8c7dba7f5c?format=jpeg',
+	'https://cdn.cosmos.so/926d440d-caf9-44a2-addf-8d242eb5c2ec?format=jpeg',
+	'https://brycerich.net/wp-content/uploads/tralfamadorian.jpg',
+	'https://cdn.cosmos.so/a30dda9b-186e-45f6-9b68-29175f192ddc?format=jpeg',
+	'https://cdn.cosmos.so/36331e04-6f9d-4d55-88df-21fcfc5d93d1?format=jpeg',
+];
 ---
 
 <Layout title='Self'>
 	<div class={styles.pageWrapper}>
-		<div class={styles.gridBoardWrapper}></div>
+		<div class={styles.goBack}>
+			<a href='/'><img src='grainsun.png' alt='go back' /></a>
+		</div>
+		<div class={styles.boardWrapper}>
+			<MasonryBoard images={photos} />
+		</div>
 	</div>
 </Layout>
