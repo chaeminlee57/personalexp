@@ -6,7 +6,9 @@ import styles from './home.module.scss';
 <Layout title='Home'>
 	<div class={styles.pageWrapper}>
 		<div class={styles.navWrapper}>
-			<p class={styles.topName}>이채민</p>
+			<div class={styles.topNameWrapper}>
+				<p class={styles.topName}>이채민</p>
+			</div>
 			<nav class={styles.navColumnGrid}>
 				<a href='/career'>Career</a>
 				<a href=''>Projects</a>
@@ -14,6 +16,7 @@ import styles from './home.module.scss';
 				<a href=''>Writing</a>
 				<a href='/self'>Self</a>
 			</nav>
+			<p class={styles.footer}></p>
 		</div>
 	</div>
 </Layout>
