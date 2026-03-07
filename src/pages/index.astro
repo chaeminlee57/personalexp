@@ -5,16 +5,19 @@ import styles from './index.module.scss';
 
 <Layout title='Index'>
 	<div class={styles.pageWrapper}>
-		<p
-			class={styles.name}
-			onmouseover="this.textContent='Lee Chaemin'"
-			onmouseout="this.textContent='Chaemin Lee'"
-		>
-			Chaemin Lee
-		</p>
-
-		<a href='/home'>
-			<img src='/bluecircle.png' alt='blue circle' />
-		</a>
+		<div class={styles.nameWrapper}>
+			<p
+				class={styles.name}
+				onmouseover="this.textContent='이채민'"
+				onmouseout="this.textContent='Chaemin Lee'"
+			>
+				Chaemin Lee
+			</p>
+		</div>
+		<div class={styles.ballWrapper}>
+			<a href='/home'>
+				<img src='/bluecircle.png' alt='blue circle' />
+			</a>
+		</div>
 	</div>
 </Layout>
