@@ -16,7 +16,12 @@ import styles from './self.module.scss';
 							id='spin-img'
 							class={styles.vinyl}
 						/>
-						<img src='pointer.webp' alt='pointer' class={styles.pointer} />
+						<img
+							src='pointer.webp'
+							alt='pointer'
+							class={styles.pointer}
+							id='spin-pointer'
+						/>
 					</div>
 				</div>
 			</div>
@@ -49,12 +54,14 @@ import styles from './self.module.scss';
 		const freshImg = img.cloneNode(true) as HTMLImageElement;
 		img.replaceWith(freshImg);
 
+		const pointer = document.getElementById('spin-pointer') as HTMLImageElement;
+
 		let currentRotation = 0;
 		text.innerHTML = textMap[0];
 
 		let isAnimating = false;
 
-		freshImg.addEventListener('click', () => {
+		const handleClick = () => {
 			if (isAnimating) return;
 			isAnimating = true;
 
@@ -73,7 +80,10 @@ import styles from './self.module.scss';
 					isAnimating = false;
 				}, 200);
 			}, 200);
-		});
+		};
+
+		freshImg.addEventListener('click', handleClick);
+		pointer?.addEventListener('click', handleClick);
 	}
 
 	document.addEventListener('DOMContentLoaded', init);
