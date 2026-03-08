@@ -6,12 +6,54 @@ import styles from './self.module.scss';
 <Layout title='Self'>
 	<div class={styles.pageWrapper}>
 		<div class={styles.contentWrapper}>
-			<div class={styles.imageWrapper}>
-				<a href='/home'><img src='coolcat.png' alt='cool cat' /></a>
+			<div class={styles.imagePositionWrapper}>
+				<div class={styles.imageWrapper}>
+					<img src='vinyl.png' alt='vinyl' id='spin-img' />
+				</div>
 			</div>
-			<div class={styles.textWrapper}>
-				<p></p>
+			<div class={styles.textPositionWrapper}>
+				<div class={styles.textWrapper}>
+					<p id='spin-text'></p>
+				</div>
 			</div>
 		</div>
 	</div>
 </Layout>
+
+<script>
+	let currentRotation = 0;
+
+	const img = document.getElementById('spin-img');
+	const text = document.getElementById('spin-text');
+
+	const textMap: Record<number, string> = {
+		0: '<strong>My Favorite Movies</strong><br>Mulholland Drive<br>Stalker<br>In the Mood for Love',
+		45: '<strong>My Favorite Songs</strong><br>Sometimes — My Bloody Valentine<br>Fourth of July — Sufjan Stevens<br>Motion Picture Soundtrack — Radiohead',
+		90: '<strong>My Favorite Books</strong><br>The Brothers Karamazov<br>Slaughterhouse-Five<br>Notes from Underground',
+		135: '<strong>My Favorite Albums</strong><br>Loveless — My Bloody Valentine<br>Illinois — Sufjan Stevens<br>OK Computer — Radiohead',
+		180: '<strong>My Favorite Artists</strong><br>Edward Hopper<br>Egon Schiele<br>Caspar David Friedrich',
+		225: '<strong>My Favorite Foods</strong><br>Soondubu jjigae<br>Mango sticky rice<br>Tteokbokki',
+		270: '<strong>My Favorite Directors</strong><br>David Lynch<br>Andrei Tarkovsky<br>Wong Kar-wai',
+		315: '<strong>My Favorite Words</strong><br>Saudade<br>Hiraeth<br>Mono no aware',
+	};
+
+	img?.addEventListener('click', () => {
+		currentRotation = (currentRotation + 45) % 360;
+		img.style.transform = `rotate(${currentRotation}deg)`;
+		img.style.transition = 'transform 0.4s ease';
+
+		if (text) {
+			text.style.transition = 'opacity 0.2s ease';
+			text.style.opacity = '0';
+
+			text.addEventListener(
+				'transitionend',
+				() => {
+					text.innerHTML = textMap[currentRotation];
+					text.style.opacity = '1';
+				},
+				{ once: true }
+			);
+		}
+	});
+</script>
