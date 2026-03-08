@@ -6,6 +6,7 @@ import styles from './self.module.scss';
 <Layout title='Self'>
 	<div class={styles.pageWrapper}>
 		<div class={styles.contentWrapper}>
+			<a href='/home'><img src='coolcat.png' alt='cool cat' /></a>
 			<div class={styles.imagePositionWrapper}>
 				<div class={styles.imageWrapper}>
 					<img src='vinyl.png' alt='vinyl' id='spin-img' />
@@ -21,39 +22,51 @@ import styles from './self.module.scss';
 </Layout>
 
 <script>
-	let currentRotation = 0;
-
-	const img = document.getElementById('spin-img');
-	const text = document.getElementById('spin-text');
-
 	const textMap: Record<number, string> = {
-		0: '<strong>My Favorite Movies</strong><br>Mulholland Drive<br>Stalker<br>In the Mood for Love',
-		45: '<strong>My Favorite Songs</strong><br>Sometimes — My Bloody Valentine<br>Fourth of July — Sufjan Stevens<br>Motion Picture Soundtrack — Radiohead',
-		90: '<strong>My Favorite Books</strong><br>The Brothers Karamazov<br>Slaughterhouse-Five<br>Notes from Underground',
-		135: '<strong>My Favorite Albums</strong><br>Loveless — My Bloody Valentine<br>Illinois — Sufjan Stevens<br>OK Computer — Radiohead',
-		180: '<strong>My Favorite Artists</strong><br>Edward Hopper<br>Egon Schiele<br>Caspar David Friedrich',
-		225: '<strong>My Favorite Foods</strong><br>Soondubu jjigae<br>Mango sticky rice<br>Tteokbokki',
-		270: '<strong>My Favorite Directors</strong><br>David Lynch<br>Andrei Tarkovsky<br>Wong Kar-wai',
-		315: '<strong>My Favorite Words</strong><br>Saudade<br>Hiraeth<br>Mono no aware',
+		0: '<strong>My Favorite Movies</strong><br>Memories of Murder — Bong Joon-ho<br>The Wind Rises — Miyazaki Hayao',
+		45: '<strong>My Favorite Songs</strong><br>Yanqui U.X.O — Godspeed You! Black Emperor<br>A Quick One Before The Eternal Worm Devours Connecticut — Have A Nice Life<br>Doctor Gradus Ad Parnassum — Debussy<br>Touch — Daft Punk',
+		90: '<strong>My Favorite Books</strong><br>The Screwtape Letters — C.S. Lewis<br>Slaughterhouse-Five — Kurt Vonnegut<br>The Sirens of Titan — Kurt Vonnegut',
+		135: '<strong>My Favorite Albums</strong><br>Yanqui U.X.O — Godspeed You! Black Emperor<br>Bitches Brew — Miles Davis<br>Donda — Kanye West<br>Kids See Ghosts — Kids See Ghosts<br>Drukqs — Aphex Twin',
+		180: '<strong>My Favorite Artists</strong><br>JPEGMAFIA<br>Godspeed You! Black Emperor<br>Mahler<br>Mike Dean<br>Swans',
+		225: '<strong>My Favorite Foods</strong><br>Red Velvet Cake<br>Ramen<br>Melon Pan',
+		270: '<strong>My Favorite Colors</strong><br>Purple<br>Chrome Silver<br>Jet Black',
+		315: '<strong>My Favorite Words</strong><br>Tralfamadorian<br>Kafkaesque<br>Atonement',
 	};
 
-	img?.addEventListener('click', () => {
-		currentRotation = (currentRotation + 45) % 360;
-		img.style.transform = `rotate(${currentRotation}deg)`;
-		img.style.transition = 'transform 0.4s ease';
+	function init() {
+		const img = document.getElementById('spin-img') as HTMLImageElement;
+		const text = document.getElementById('spin-text');
+		if (!img || !text) return;
 
-		if (text) {
+		const freshImg = img.cloneNode(true) as HTMLImageElement;
+		img.replaceWith(freshImg);
+
+		let currentRotation = 0;
+		text.innerHTML = textMap[0];
+
+		let isAnimating = false;
+
+		freshImg.addEventListener('click', () => {
+			if (isAnimating) return;
+			isAnimating = true;
+
+			currentRotation = (currentRotation + 45) % 360;
+			freshImg.style.transform = `rotate(${currentRotation}deg)`;
+			freshImg.style.transition = 'transform 0.4s ease';
+
 			text.style.transition = 'opacity 0.2s ease';
 			text.style.opacity = '0';
 
-			text.addEventListener(
-				'transitionend',
-				() => {
-					text.innerHTML = textMap[currentRotation];
-					text.style.opacity = '1';
-				},
-				{ once: true }
-			);
-		}
-	});
+			setTimeout(() => {
+				text.innerHTML = textMap[currentRotation];
+				text.style.opacity = '1';
+
+				setTimeout(() => {
+					isAnimating = false;
+				}, 200);
+			}, 200);
+		});
+	}
+
+	document.addEventListener('astro:page-load', init);
 </script>
