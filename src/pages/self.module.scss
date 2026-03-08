@@ -71,6 +71,10 @@ strong {
     width: 100%;
   }
 
+  :global(#spin-text) {
+    text-align: center;
+  }
+
   img {
     width: clamp(200px, 70vw, 320px);
   }
