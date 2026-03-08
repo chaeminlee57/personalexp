@@ -6,17 +6,17 @@ import styles from './self.module.scss';
 <Layout title='Self'>
 	<div class={styles.pageWrapper}>
 		<div class={styles.contentWrapper}>
-			<a href='/home'><img src='coolcat.png' alt='cool cat' /></a>
+			<a href='/home'><img src='coolcat.webp' alt='cool cat' /></a>
 			<div class={styles.imagePositionWrapper}>
 				<div class={styles.imageWrapper}>
 					<div class={styles.vinylWrapper}>
 						<img
-							src='vinyl.png'
+							src='Vinyl.webp'
 							alt='vinyl'
 							id='spin-img'
 							class={styles.vinyl}
 						/>
-						<img src='pointer.png' alt='pointer' class={styles.pointer} />
+						<img src='pointer.webp' alt='pointer' class={styles.pointer} />
 					</div>
 				</div>
 			</div>
@@ -33,7 +33,7 @@ import styles from './self.module.scss';
 	const textMap: Record<number, string> = {
 		0: '<strong>My Favorite Movies</strong><br>Memories of Murder — Bong Joon-ho<br>The Wind Rises — Miyazaki Hayao',
 		45: '<strong>My Favorite Songs</strong><br>Yanqui U.X.O — Godspeed You! Black Emperor<br>A Quick One Before The Eternal Worm Devours Connecticut — Have A Nice Life<br>Doctor Gradus Ad Parnassum — Debussy<br>Touch — Daft Punk',
-		90: '<strong>My Favorite Books</strong><br>The Screwtape Letters — C.S. Lewis<br>Slaughterhouse-Five — Kurt Vonnegut<br>The Sirens of Titan — Kurt Vonnegut',
+		90: '<strong>My Favorite Books</strong><br>The Screwtape Letters — C.S. Lewis<br>Slaughterhouse-Five — Kurt Vonnegut<br>The Sirens of Titan — Kurt Vonnegut<br>Snow Country - Yasunari Kawabata',
 		135: '<strong>My Favorite Albums</strong><br>Yanqui U.X.O — Godspeed You! Black Emperor<br>Bitches Brew — Miles Davis<br>Donda — Kanye West<br>Kids See Ghosts — Kids See Ghosts<br>Drukqs — Aphex Twin',
 		180: '<strong>My Favorite Artists</strong><br>JPEGMAFIA<br>Godspeed You! Black Emperor<br>Mahler<br>Mike Dean<br>Swans',
 		225: '<strong>My Favorite Foods</strong><br>Red Velvet Cake<br>Ramen<br>Melon Pan',
@@ -76,5 +76,5 @@ import styles from './self.module.scss';
 		});
 	}
 
-	document.addEventListener('astro:page-load', init);
+	document.addEventListener('DOMContentLoaded', init);
 </script>
