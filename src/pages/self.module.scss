@@ -50,6 +50,25 @@ strong {
   align-items: center;
 }
 
+.vinylWrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.vinyl {
+  display: block;
+}
+
+.pointer {
+  position: absolute;
+  top: -20px;
+  right: -180px;
+  rotate: 35deg;
+  height: 250px;
+  width: auto;
+  transform-origin: top center;
+}
+
 @media (max-width: 768px) {
   .contentWrapper {
     flex-direction: column;

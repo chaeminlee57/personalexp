@@ -9,7 +9,15 @@ import styles from './self.module.scss';
 			<a href='/home'><img src='coolcat.png' alt='cool cat' /></a>
 			<div class={styles.imagePositionWrapper}>
 				<div class={styles.imageWrapper}>
-					<img src='vinyl.png' alt='vinyl' id='spin-img' />
+					<div class={styles.vinylWrapper}>
+						<img
+							src='vinyl.png'
+							alt='vinyl'
+							id='spin-img'
+							class={styles.vinyl}
+						/>
+						<img src='pointer.png' alt='pointer' class={styles.pointer} />
+					</div>
 				</div>
 			</div>
 			<div class={styles.textPositionWrapper}>
