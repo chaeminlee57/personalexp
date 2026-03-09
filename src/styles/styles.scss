@@ -9,6 +9,8 @@
 html, body {
   background-color: #e9dfd5;
   margin: 0;
+  width: 100dvw;
+  min-height: 100dvh;
 }
 
 @view-transition {

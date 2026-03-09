@@ -1,6 +1,6 @@
 .pageWrapper {
   min-height: 100vh;
-  width: 100vw;  
+  width: 100dvw;  
   display: flex;
   justify-content: center;
   align-items: center;
@@ -75,7 +75,6 @@ strong {
     height: auto;
     min-height: 100vh;
     width: 100vw;
-    padding: 24px 20px;
     justify-content: flex-start;
     gap: 24px;
   }
@@ -92,6 +91,7 @@ strong {
 
   :global(#spin-text) {
     text-align: center;
+    padding-inline: 10px;
   }
 
   img {
